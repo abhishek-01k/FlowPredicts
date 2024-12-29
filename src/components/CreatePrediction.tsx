@@ -27,11 +27,18 @@ const validationSchema = Yup.object().shape({
     ),
 });
 
+type InitialValuesType = {
+  question: string;
+  imageUrl: string;
+  bettingDuration: number;
+  resolutionPeriod: number;
+};
+
 export function CreatePrediction() {
   const address = useAccount();
   const { refetchActivePredictions } = useGlobalContext();
 
-  const initialValues = {
+  const initialValues: InitialValuesType = {
     question: "",
     imageUrl: "",
     bettingDuration: 24,
@@ -40,7 +47,7 @@ export function CreatePrediction() {
 
   const [isLoading, setisLoading] = useState(false);
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: InitialValuesType) => {
     if (!address || !values) return;
 
     console.log(values);

@@ -1,9 +1,8 @@
-// src/context/PredictionContext.tsx
 import {
   PREDICTION_MARKET_CONTRACT_ABI,
   PREDICTION_MARKET_CONTRACT_ADDRESS,
 } from "@/config/contractConfig";
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { useReadContract } from "wagmi";
 
 type PredictionContextType = {
@@ -11,10 +10,20 @@ type PredictionContextType = {
   activePredictions: unknown;
   loadingActivePredictions: boolean;
   refetchActivePredictions: () => unknown;
-  setPredictions: React.Dispatch<React.SetStateAction<never[]>>;
-} | null;
+  setPredictions: (predictions: never[]) => void;
+};
 
-const PredictionContext = createContext<PredictionContextType>(null);
+const predictionInitialValue = {
+  predictions: [],
+  activePredictions: [],
+  loadingActivePredictions: false,
+  refetchActivePredictions: () => {},
+  setPredictions: () => {},
+};
+
+const PredictionContext = createContext<PredictionContextType>(
+  predictionInitialValue
+);
 
 export const GlobalContextProvider = ({
   children,
