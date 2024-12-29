@@ -1,11 +1,10 @@
-import { createConfig } from "@privy-io/wagmi";
-import { mainnet, sepolia } from "viem/chains";
-import { http } from "wagmi";
+import { flowTestnet, flowMainnet } from "viem/chains";
+import { createConfig, http } from "wagmi";
 
 export const wagmiConfig = createConfig({
-  chains: [mainnet, sepolia],
+  chains: [flowTestnet, flowMainnet],
   transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
+    [flowTestnet.id]: http(),
+    [flowMainnet.id]: http(),
   },
 });

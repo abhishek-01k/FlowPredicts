@@ -2,6 +2,7 @@ import { usePrivy } from "@privy-io/react-auth";
 import { Button } from "./ui/button";
 import { useAccount } from "wagmi";
 import { useWallets } from "@privy-io/react-auth";
+import { truncateAddress } from "@/helpers";
 
 const WalletConnect = () => {
   const { ready, authenticated, login, logout } = usePrivy();
@@ -14,10 +15,11 @@ const WalletConnect = () => {
   console.log("Address", address);
 
   return (
-    <div>
+    <div className="flex gap-2">
       {authenticated ? (
-        <div>
-          <p>{address}</p>
+        <div className="flex gap-2">
+          {/* <UserProfile /> */}
+          <p>{truncateAddress(address!)}</p>
           <Button onClick={logout}>Logout</Button>
         </div>
       ) : (

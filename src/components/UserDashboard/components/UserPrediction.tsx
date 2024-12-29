@@ -1,7 +1,7 @@
 import { PredictionCard } from "@/components/PredictionCard";
 import { useGlobalContext } from "@/context/GlobalContext";
 
-export function HomePage() {
+const UserPrediction = () => {
   const { activePredictions, loadingActivePredictions } = useGlobalContext();
 
   const predictionBets = [
@@ -46,10 +46,11 @@ export function HomePage() {
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {!loadingActivePredictions &&
-        // activePredictions
-        activePredictions.map((prediction) => (
+        predictionBets.map((prediction) => (
           <PredictionCard key={prediction.id} prediction={prediction} />
         ))}
     </div>
   );
-}
+};
+
+export default UserPrediction;

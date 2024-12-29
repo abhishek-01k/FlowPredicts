@@ -1,78 +1,160 @@
-import React, { useState } from "react";
-import { Upload } from "lucide-react";
+import {
+  PREDICTION_MARKET_CONTRACT_ABI,
+  PREDICTION_MARKET_CONTRACT_ADDRESS,
+} from "@/config/contractConfig";
+import { wagmiConfig } from "@/config/wagmiConfig";
+import { useGlobalContext } from "@/context/GlobalContext";
+import { convertToSeconds } from "@/helpers/format";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { useAccount } from "wagmi";
+import { writeContract } from "wagmi/actions";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object().shape({
+  question: Yup.string().required("Question is required"),
+  imageUrl: Yup.string().url("Invalid URL").required("Image URL is required"),
+  bettingDuration: Yup.number()
+    .required("Betting duration is required")
+    .positive("Must be a positive number"),
+  resolutionPeriod: Yup.number()
+    .required("Resolution period is required")
+    .positive("Must be a positive number")
+    .moreThan(
+      Yup.ref("bettingDuration"),
+      "Resolution period must be greater than betting duration"
+    ),
+});
 
 export function CreatePrediction() {
-  const [question, setQuestion] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const address = useAccount();
+  const { refetchActivePredictions } = useGlobalContext();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Implement blockchain interaction
-    console.log({ question, imageUrl, endDate });
+  const initialValues = {
+    question: "",
+    imageUrl: "",
+    bettingDuration: 24,
+    resolutionPeriod: 72,
+  };
+
+  const [isLoading, setisLoading] = useState(false);
+
+  const onSubmit = async (values: any) => {
+    if (!address || !values) return;
+
+    console.log(values);
+    setisLoading(true);
+    try {
+      const createPredictionTx = await writeContract(wagmiConfig, {
+        abi: PREDICTION_MARKET_CONTRACT_ABI,
+        address: PREDICTION_MARKET_CONTRACT_ADDRESS,
+        functionName: "createPrediction",
+        args: [
+          values.question,
+          values.imageUrl,
+          convertToSeconds(values.bettingDuration),
+          convertToSeconds(values.resolutionPeriod),
+        ],
+      });
+      console.log("createPredictionTx", createPredictionTx);
+      refetchActivePredictions();
+      toast.success(`Prediction Created successfully`);
+    } catch (error) {
+      console.log("Error in creating prediction", error);
+      toast.error(`Error in creating prediction`);
+    } finally {
+      setisLoading(false);
+    }
   };
 
   return (
     <div className="max-w-2xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">Create New Prediction</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Question
-          </label>
-          <input
-            type="text"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="What do you want to predict?"
-            required
-          />
-        </div>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
+        {({ isSubmitting }) => (
+          <Form className="space-y-6">
+            <div className="flex items-start flex-col">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Question
+              </label>
+              <Field
+                type="text"
+                name="question"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background"
+                placeholder="What do you want to predict?"
+              />
+              <ErrorMessage
+                name="question"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Image URL
-          </label>
-          <div className="flex gap-4">
-            <input
-              type="url"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="https://example.com/image.jpg"
-              required
-            />
+            <div className="flex items-start flex-col">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Image URL
+              </label>
+              <Field
+                type="url"
+                name="imageUrl"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background"
+                placeholder="https://example.com/image.jpg"
+              />
+              <ErrorMessage
+                name="imageUrl"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
+
+            <div className="flex items-start flex-col">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Betting Duration (in hours)
+              </label>
+              <Field
+                type="number"
+                name="bettingDuration"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background"
+              />
+              <ErrorMessage
+                name="bettingDuration"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
+
+            <div className="flex items-start flex-col">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Resolution Period (in hours)
+              </label>
+              <Field
+                type="number"
+                name="resolutionPeriod"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-background"
+              />
+              <ErrorMessage
+                name="resolutionPeriod"
+                component="div"
+                className="text-red-600"
+              />
+            </div>
+
             <button
-              type="button"
-              className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+              disabled={isSubmitting || isLoading}
             >
-              <Upload className="w-5 h-5" />
+              {isSubmitting ? "Creating" : "Create Prediction"}
             </button>
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            End Date
-          </label>
-          <input
-            type="datetime-local"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            required
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          Create Prediction
-        </button>
-      </form>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 }
