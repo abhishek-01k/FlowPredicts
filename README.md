@@ -1,7 +1,7 @@
 # FlowPredicts
 ![flowPredicts](https://github.com/user-attachments/assets/21b93f6d-830c-41be-a91c-e30fc531c05a)
 
-FlowPredicts is a **Decentralized Prediction Market** deployed on the **Flow EVM Testnet**. It enables users to create, participate, and resolve prediction markets seamlessly using blockchain technology. This application is designed as a **Telegram Mini Application**, allowing users to interact directly within Telegram, making it highly accessible and convenient.
+FlowPredicts is a **Decentralized Prediction Market** deployed on the **Flow EVM Testnet**. It enables users to create, participate, and resolve prediction markets seamlessly using blockchain technology.
 
 ---
 
