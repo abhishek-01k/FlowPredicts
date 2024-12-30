@@ -1,10 +1,17 @@
 # FlowPredicts
 
+![flowPredicts](https://github.com/user-attachments/assets/b1c6407c-d284-4a08-8846-408065297121)
+
+
 FlowPredicts is a decentralized prediction marketplace built on Ethereum that allows users to create and participate in prediction markets. Users can bet on the outcome of various events using USDC, creating a fair and transparent platform for predictions. This project is a submission for the [Flow Asia Hackathon](https://www.hackquest.io/en/hackathon/explore/Flow-Asia-Hackathon).
 
 ## Features
 
 ### Core Functionalities
+
+- **Create Predictions:**
+  - Users can create predictions with detailed questions, image URIs, and predefined betting and resolution durations.
+  - Validation ensures the betting and resolution durations fall within allowed time ranges.
 
 - **Create Predictions:**
   - Users can create predictions with detailed questions, image URIs, and predefined betting and resolution durations.
