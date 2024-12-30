@@ -8,10 +8,14 @@ import {
 } from "@/config/contractConfig";
 import { USDC_NAME } from "@/config/USDCConfig";
 import { formatAmount } from "@/helpers/format";
+import { useGlobalContext } from "@/context/GlobalContext";
+import { Prediction } from "@/types/prediction";
+import Withdraw from "./Withdraw";
 
 const UserDeposit = () => {
+  const { activePredictions, allPredictions, loadingPredictions } =
+    useGlobalContext();
   const { address, isConnected } = useAccount();
-  console.log("Adress", address);
 
   const { data: userDepositAmount, isLoading: loadingUserDepositAmount } =
     useReadContract({
@@ -27,9 +31,13 @@ const UserDeposit = () => {
     console.log("Deposit func called");
   };
 
-  if (!isConnected || loadingUserDepositAmount) {
+  if (!isConnected || loadingUserDepositAmount || loadingPredictions) {
     return <div>Loading....</div>;
   }
+
+  const totalNumberOfPredictions =
+    (activePredictions as Prediction[]).length +
+    (allPredictions as Prediction[]).length;
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
@@ -44,7 +52,12 @@ const UserDeposit = () => {
               {Number(formatAmount(userDepositAmount as bigint)).toFixed(2)}{" "}
               {USDC_NAME}
             </div>
-            <DepositDialog onDeposit={handleDeposit} />
+            <div className="flex gap-2">
+              <DepositDialog onDeposit={handleDeposit} />
+              <Withdraw
+                amount={Number(formatAmount(userDepositAmount as bigint))}
+              />
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -57,9 +70,7 @@ const UserDeposit = () => {
           <TrendingUp className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">
-            {/* {userData.predictions.length} */}4
-          </div>
+          <div className="text-2xl font-bold">{totalNumberOfPredictions}</div>
         </CardContent>
       </Card>
     </div>

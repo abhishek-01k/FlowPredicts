@@ -87,7 +87,7 @@ export function PredictionCard({ prediction }: PredictionPropsT) {
         </div>
       </CardContent>
       <CardFooter className="flex flex-col items-start">
-        {!prediction.isResolved && (
+        {new Date() < new Date(Number(prediction.bettingEndTime) * 1000) && (
           <>
             {showVoteContainer ? (
               <DisplayVoteContainer prediction={prediction} />
@@ -105,7 +105,7 @@ export function PredictionCard({ prediction }: PredictionPropsT) {
         {prediction.isResolved && (
           <div
             className={cn(
-              "text-center py-2 rounded-lg font-medium",
+              "text-center py-2 rounded-lg font-medium w-full",
               prediction.outcome
                 ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
                 : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"

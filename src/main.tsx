@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css"; // Import the CSS for styling
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="prediction-market-theme">
+    <ThemeProvider defaultTheme="light" storageKey="prediction-market-theme">
       <Provider>
         <GlobalContextProvider>
           <App />

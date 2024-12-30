@@ -1,9 +1,34 @@
 import { Link } from "react-router-dom";
-import { Home, PlusCircle, User } from "lucide-react";
+import { Home, PlusCircle, TrendingUp, User, Menu } from "lucide-react";
 import WalletConnect from "./WalletConnect";
 import { ThemeToggle } from "./theme/theme-toogle";
+import { APP_ROUTES } from "@/constants/appRoute";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const navLinks = [
+    { to: APP_ROUTES.HOME, icon: Home, label: "Home" },
+    { to: APP_ROUTES.CREATE_PREDICTION, icon: PlusCircle, label: "Create" },
+    { to: APP_ROUTES.PREDICTIONS, icon: TrendingUp, label: "Predictions" },
+    { to: APP_ROUTES.PROFILE, icon: User, label: "Profile" },
+  ];
+
+  const NavLinks = () => (
+    <>
+      {navLinks.map((link) => (
+        <Link
+          key={link.to}
+          to={link.to}
+          className="flex items-center space-x-1 text-muted-foreground hover:text-foreground"
+        >
+          <link.icon className="w-4 h-4" />
+          <span>{link.label}</span>
+        </Link>
+      ))}
+    </>
+  );
+
   return (
     <div className="bg-background text-foreground">
       <header className="border-b">
@@ -15,31 +40,30 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </Link>
             </div>
 
-            <nav className="flex items-center space-x-4">
-              <Link
-                to="/"
-                className="flex items-center space-x-1 text-muted-foreground hover:text-foreground"
-              >
-                <Home className="w-4 h-4" />
-                <span>Home</span>
-              </Link>
-              <Link
-                to="/create"
-                className="flex items-center space-x-1 text-muted-foreground hover:text-foreground"
-              >
-                <PlusCircle className="w-4 h-4" />
-                <span>Create</span>
-              </Link>
-              <Link
-                to="/my-predictions"
-                className="flex items-center space-x-1 text-muted-foreground hover:text-foreground"
-              >
-                <User className="w-4 h-4" />
-                <span>My Predictions</span>
-              </Link>
+            <nav className="hidden md:flex items-center space-x-4">
+              <NavLinks />
               <ThemeToggle />
               <WalletConnect />
             </nav>
+
+            <div className="md:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="h-6 w-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                  <nav className="flex flex-col space-y-4 mt-4">
+                    <NavLinks />
+                    <div className="flex items-center space-x-4">
+                      <ThemeToggle />
+                      <WalletConnect />
+                    </div>
+                  </nav>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </header>

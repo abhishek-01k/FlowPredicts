@@ -5,6 +5,8 @@ import {
   PREDICTION_MARKET_CONTRACT_ABI,
   PREDICTION_MARKET_CONTRACT_ADDRESS,
 } from "@/config/contractConfig";
+import UserCreatedPrediction from "./components/UserCreatedPrediction";
+import UserBets from "./components/UserBets";
 
 const UserDashboard = () => {
   const { address, isConnected } = useAccount();
@@ -27,6 +29,8 @@ const UserDashboard = () => {
       <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
       <UserDeposit />
       <UserPrediction />
+      <UserCreatedPrediction />
+      <UserBets />
     </div>
   );
 };

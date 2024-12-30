@@ -8,7 +8,8 @@ import { useReadContract } from "wagmi";
 type PredictionContextType = {
   predictions: never[];
   activePredictions: unknown;
-  loadingActivePredictions: boolean;
+  allPredictions: unknown;
+  loadingPredictions: boolean;
   refetchActivePredictions: () => unknown;
   setPredictions: (predictions: never[]) => void;
 };
@@ -16,7 +17,8 @@ type PredictionContextType = {
 const predictionInitialValue = {
   predictions: [],
   activePredictions: [],
-  loadingActivePredictions: false,
+  allPredictions: [],
+  loadingPredictions: false,
   refetchActivePredictions: () => {},
   setPredictions: () => {},
 };
@@ -44,13 +46,25 @@ export const GlobalContextProvider = ({
 
   console.log("activePredictions", activePredictions);
 
+  const { data: allPredictions, isLoading: loadingAllPredictions } =
+    useReadContract({
+      abi: PREDICTION_MARKET_CONTRACT_ABI,
+      address: PREDICTION_MARKET_CONTRACT_ADDRESS,
+      functionName: "getAllPredictions",
+    });
+
+  console.log("All Predictions", allPredictions, loadingAllPredictions);
+
+  const loadingPredictions = loadingAllPredictions || loadingActivePredictions;
+
   return (
     <PredictionContext.Provider
       value={{
         predictions,
         setPredictions,
         activePredictions,
-        loadingActivePredictions,
+        allPredictions,
+        loadingPredictions,
         refetchActivePredictions,
       }}
     >

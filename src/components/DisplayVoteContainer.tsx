@@ -18,6 +18,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import { Button } from "./ui/button";
+import { useGlobalContext } from "@/context/GlobalContext";
 
 type PredictionPropsT = {
   prediction: PredictionCardProps;
@@ -25,9 +26,10 @@ type PredictionPropsT = {
 
 export const DisplayVoteContainer = ({ prediction }: PredictionPropsT) => {
   const { address } = useAccount();
-  console.log("Adress", address);
+  const { refetchActivePredictions } = useGlobalContext();
 
   const [bettingAmount, setBettingAmount] = useState<number>(0);
+  const [isplacingBet, setIsPlacingBet] = useState(false);
 
   const handleCheckAllowance = async () => {
     try {
@@ -54,11 +56,12 @@ export const DisplayVoteContainer = ({ prediction }: PredictionPropsT) => {
       return;
     }
 
-    if (bettingAmount < 0) {
+    if (bettingAmount <= 0) {
       toast.error("Betting Amount too low");
       return;
     }
 
+    setIsPlacingBet(true);
     const allowance = await handleCheckAllowance();
 
     if (allowance < bettingAmount) {
@@ -81,13 +84,18 @@ export const DisplayVoteContainer = ({ prediction }: PredictionPropsT) => {
       });
 
       console.log("placeBetTx", placeBetTx);
+      toast.success("Bet Placed successfully");
+      refetchActivePredictions();
     } catch (error) {
       console.log("Error in placing bets >>>", error);
+      toast.error("Error in placing the bet");
+    } finally {
+      setIsPlacingBet(false);
     }
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
       <div className="flex items-start flex-col gap-2">
         <Label
           htmlFor="bettingAmount"
@@ -114,6 +122,7 @@ export const DisplayVoteContainer = ({ prediction }: PredictionPropsT) => {
 
       <div className="flex space-x-4">
         <Button
+          disabled={isplacingBet}
           onClick={() => handleVote(true)}
           className="flex-1 flex items-center justify-center space-x-2 bg-green-100 hover:bg-green-200 text-green-700 py-2 rounded-lg transition-colors dark:bg-green-900/30 dark:hover:bg-green-900/50 dark:text-green-400"
         >
@@ -122,6 +131,7 @@ export const DisplayVoteContainer = ({ prediction }: PredictionPropsT) => {
         </Button>
 
         <Button
+          disabled={isplacingBet}
           onClick={() => handleVote(false)}
           className="flex-1 flex items-center justify-center space-x-2 bg-red-100 hover:bg-red-200 text-red-700 py-2 rounded-lg transition-colors dark:bg-red-900/30 dark:hover:bg-red-900/50 dark:text-red-400"
         >
