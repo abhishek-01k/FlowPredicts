@@ -12,15 +12,12 @@ import { useAccount } from "wagmi";
 import { writeContract } from "wagmi/actions";
 
 const Withdraw = ({ amount }: { amount: number }) => {
-  console.log("Amount", amount);
   const { address } = useAccount();
 
   const [loading, setLoading] = useState(false);
 
   const handleWithdraw = async () => {
     if (!address) return;
-
-    console.log("amount", amount, parseUnits(amount.toString(), 6));
 
     try {
       setLoading(true);

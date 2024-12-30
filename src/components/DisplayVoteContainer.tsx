@@ -2,18 +2,14 @@ import {
   PREDICTION_MARKET_CONTRACT_ABI,
   PREDICTION_MARKET_CONTRACT_ADDRESS,
 } from "@/config/contractConfig";
-import {
-  USDC_ABI,
-  USDC_CONTRACT_ADDRESS,
-  USDC_NAME,
-} from "@/config/USDCConfig";
+import { USDC_NAME } from "@/config/USDCConfig";
 import { wagmiConfig } from "@/config/wagmiConfig";
 import { PredictionCardProps } from "@/types/prediction";
 import { parseUnits } from "ethers";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
-import { readContract, writeContract } from "wagmi/actions";
+import { writeContract } from "wagmi/actions";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
@@ -31,25 +27,6 @@ export const DisplayVoteContainer = ({ prediction }: PredictionPropsT) => {
   const [bettingAmount, setBettingAmount] = useState<number>(0);
   const [isplacingBet, setIsPlacingBet] = useState(false);
 
-  const handleCheckAllowance = async () => {
-    try {
-      if (!address) return 0;
-
-      const allowance = await readContract(wagmiConfig, {
-        abi: USDC_ABI,
-        address: USDC_CONTRACT_ADDRESS,
-        functionName: "allowance",
-        args: [address, PREDICTION_MARKET_CONTRACT_ADDRESS],
-      });
-
-      console.log("Allowance", allowance);
-      return Number(allowance);
-    } catch (error) {
-      console.log("Error in getting allowance", error);
-      return 0;
-    }
-  };
-
   const handleVote = async (betSide: boolean) => {
     if (!address) {
       toast.error("Connect your wallet ");
@@ -62,15 +39,8 @@ export const DisplayVoteContainer = ({ prediction }: PredictionPropsT) => {
     }
 
     setIsPlacingBet(true);
-    const allowance = await handleCheckAllowance();
-
-    if (allowance < bettingAmount) {
-      //TODO: Check the balance of the user and ask them to First Approve the token amount
-      toast.error("Your deposit is low, please deposit money first");
-    }
 
     try {
-      // Place the bet
       const placeBetTx = await writeContract(wagmiConfig, {
         abi: PREDICTION_MARKET_CONTRACT_ABI,
         address: PREDICTION_MARKET_CONTRACT_ADDRESS,
@@ -89,6 +59,7 @@ export const DisplayVoteContainer = ({ prediction }: PredictionPropsT) => {
     } catch (error) {
       console.log("Error in placing bets >>>", error);
       toast.error("Error in placing the bet");
+      setIsPlacingBet(false);
     } finally {
       setIsPlacingBet(false);
     }

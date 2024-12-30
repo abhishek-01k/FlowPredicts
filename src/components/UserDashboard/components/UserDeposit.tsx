@@ -13,19 +13,19 @@ import { Prediction } from "@/types/prediction";
 import Withdraw from "./Withdraw";
 
 const UserDeposit = () => {
-  const { activePredictions, allPredictions, loadingPredictions } =
-    useGlobalContext();
+  const { allPredictions, loadingPredictions } = useGlobalContext();
   const { address, isConnected } = useAccount();
 
-  const { data: userDepositAmount, isLoading: loadingUserDepositAmount } =
-    useReadContract({
-      abi: PREDICTION_MARKET_CONTRACT_ABI,
-      address: PREDICTION_MARKET_CONTRACT_ADDRESS,
-      functionName: "userBalances",
-      args: [address],
-    });
-
-  console.log("userDepositAmount", userDepositAmount, loadingUserDepositAmount);
+  const {
+    data: userDepositAmount,
+    isLoading: loadingUserDepositAmount,
+    refetch: refetchUserBalance,
+  } = useReadContract({
+    abi: PREDICTION_MARKET_CONTRACT_ABI,
+    address: PREDICTION_MARKET_CONTRACT_ADDRESS,
+    functionName: "userBalances",
+    args: [address],
+  });
 
   const handleDeposit = () => {
     console.log("Deposit func called");
@@ -35,9 +35,7 @@ const UserDeposit = () => {
     return <div>Loading....</div>;
   }
 
-  const totalNumberOfPredictions =
-    (activePredictions as Prediction[]).length +
-    (allPredictions as Prediction[]).length;
+  const totalNumberOfPredictions = (allPredictions as Prediction[]).length;
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
@@ -53,7 +51,10 @@ const UserDeposit = () => {
               {USDC_NAME}
             </div>
             <div className="flex gap-2">
-              <DepositDialog onDeposit={handleDeposit} />
+              <DepositDialog
+                onDeposit={handleDeposit}
+                refetchUserBalance={refetchUserBalance}
+              />
               <Withdraw
                 amount={Number(formatAmount(userDepositAmount as bigint))}
               />

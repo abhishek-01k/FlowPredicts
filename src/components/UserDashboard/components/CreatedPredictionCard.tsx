@@ -142,7 +142,7 @@ export function CreatedPredictionCard({
       </CardContent>
       <CardFooter className="flex flex-col items-start gap-4">
         <Separator />
-        {prediction.isResolved ? (
+        {prediction.isResolved && (
           <>
             <div
               className={cn(
@@ -159,33 +159,36 @@ export function CreatedPredictionCard({
               Claim Winnings
             </Button>
           </>
-        ) : (
-          <>
-            <div className="flex flex-col w-full gap-2">
-              <p className="text-xl text-muted-foreground text-left">
-                Resolve Predictions
-              </p>
-              <div className="flex space-x-4">
-                <Button
-                  onClick={() => handleResolvePrediction(true)}
-                  disabled={loading}
-                  className="flex-1 flex items-center justify-center space-x-2 bg-green-100 hover:bg-green-200 text-green-700 py-2 rounded-lg transition-colors dark:bg-green-900/30 dark:hover:bg-green-900/50 dark:text-green-400"
-                >
-                  <ThumbsUp className="w-4 h-4" />
-                  <span>Yes</span>
-                </Button>
+        )}
 
-                <Button
-                  onClick={() => handleResolvePrediction(false)}
-                  disabled={loading}
-                  className="flex-1 flex items-center justify-center space-x-2 bg-red-100 hover:bg-red-200 text-red-700 py-2 rounded-lg transition-colors dark:bg-red-900/30 dark:hover:bg-red-900/50 dark:text-red-400"
-                >
-                  <ThumbsDown className="w-4 h-4" />
-                  <span>No</span>
-                </Button>
-              </div>
+        <p className="text-xl text-muted-foreground text-left">Resolve Bets</p>
+
+        {new Date() > new Date(Number(prediction.resolutionTime) * 1000) ? (
+          <div className="flex flex-col w-full gap-2">
+            <div className="flex space-x-4">
+              <Button
+                onClick={() => handleResolvePrediction(true)}
+                disabled={loading}
+                className="flex-1 flex items-center justify-center space-x-2 bg-green-100 hover:bg-green-200 text-green-700 py-2 rounded-lg transition-colors dark:bg-green-900/30 dark:hover:bg-green-900/50 dark:text-green-400"
+              >
+                <ThumbsUp className="w-4 h-4" />
+                <span>Yes</span>
+              </Button>
+
+              <Button
+                onClick={() => handleResolvePrediction(false)}
+                disabled={loading}
+                className="flex-1 flex items-center justify-center space-x-2 bg-red-100 hover:bg-red-200 text-red-700 py-2 rounded-lg transition-colors dark:bg-red-900/30 dark:hover:bg-red-900/50 dark:text-red-400"
+              >
+                <ThumbsDown className="w-4 h-4" />
+                <span>No</span>
+              </Button>
             </div>
-          </>
+          </div>
+        ) : (
+          <p className="text-md text-muted-foreground text-left">
+            Waiting for Bet to End...
+          </p>
         )}
       </CardFooter>
     </Card>

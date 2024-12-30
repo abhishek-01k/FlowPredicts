@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Copy } from "lucide-react";
 
 const WalletConnect = () => {
   const { ready, authenticated, login, logout } = usePrivy();
@@ -47,13 +48,24 @@ const WalletConnect = () => {
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
                 <p className="text-sm font-medium leading-none">User</p>
-                <p className="text-xs leading-none text-muted-foreground">
-                  {truncateAddress(address!)}
-                </p>
+                <div className="flex gap-2">
+                  <p className="text-xs leading-none text-muted-foreground">
+                    {truncateAddress(address!)}
+                  </p>
+                  <Copy
+                    className="w-3 h-3 cursor-pointer"
+                    onClick={() => {
+                      navigator.clipboard.writeText(address!);
+                    }}
+                  />
+                </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleDisconnect}>
+            <DropdownMenuItem
+              onClick={handleDisconnect}
+              className="cursor-pointer"
+            >
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

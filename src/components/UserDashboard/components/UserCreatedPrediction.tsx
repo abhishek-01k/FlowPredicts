@@ -20,16 +20,16 @@ const UserCreatedPrediction = () => {
     args: [address],
   });
 
-  console.log("userCreatedPrediction >>>", userCreatedPrediction);
-
-  if (!isConnected) {
+  if (!isConnected || loadingUserCreatedPrediction) {
     return;
   }
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-3xl font-bold tracking-tight">Created Predictions</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <h2 className="text-3xl font-bold tracking-tight text-start">
+        Your Created Predictions:
+      </h2>
+      <div className="grid gap-6 md:grid-cols-2">
         {loadingUserCreatedPrediction ? (
           <div>Loading....</div>
         ) : (

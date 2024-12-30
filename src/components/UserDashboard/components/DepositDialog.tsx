@@ -27,29 +27,28 @@ import { toast } from "react-toastify";
 
 interface DepositDialogProps {
   onDeposit: (amount: number) => void;
+  refetchUserBalance: () => void;
 }
 
-export function DepositDialog({ onDeposit }: DepositDialogProps) {
+export function DepositDialog({
+  onDeposit,
+  refetchUserBalance,
+}: DepositDialogProps) {
   const [amount, setAmount] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const { address } = useAccount();
-  console.log("Adress", address);
 
-  const { data: tokensApproved, isLoading: loadingTokenApprove } =
-    useReadContract({
-      abi: USDC_ABI,
-      address: USDC_CONTRACT_ADDRESS,
-      functionName: "allowance",
-      args: [address, PREDICTION_MARKET_CONTRACT_ADDRESS],
-    });
-
-  console.log(
-    "tokensApproved",
-    tokensApproved,
-    loadingTokenApprove,
-    Number(formatAmount(tokensApproved as bigint))
-  );
+  const {
+    data: tokensApproved,
+    isLoading: loadingTokenApprove,
+    refetch: refetchTokenApproval,
+  } = useReadContract({
+    abi: USDC_ABI,
+    address: USDC_CONTRACT_ADDRESS,
+    functionName: "allowance",
+    args: [address, PREDICTION_MARKET_CONTRACT_ADDRESS],
+  });
 
   const handleApprove = async () => {
     try {
@@ -66,6 +65,7 @@ export function DepositDialog({ onDeposit }: DepositDialogProps) {
       });
       console.log("Apprve Tx", approveTx);
       toast.success("Successfully approved");
+      refetchTokenApproval();
       return true;
     } catch (error) {
       console.log("Error in approving token", error);
@@ -88,6 +88,7 @@ export function DepositDialog({ onDeposit }: DepositDialogProps) {
 
         console.log("depositTx", depositTx);
         toast.success("Transaction deposited successfully");
+        refetchUserBalance();
         setAmount("");
         setIsOpen(false);
       } catch (error) {

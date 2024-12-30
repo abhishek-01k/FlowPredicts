@@ -3,12 +3,10 @@ import {
   PREDICTION_MARKET_CONTRACT_ADDRESS,
 } from "@/config/contractConfig";
 import { wagmiConfig } from "@/config/wagmiConfig";
-import { APP_ROUTES } from "@/constants/appRoute";
 import { useGlobalContext } from "@/context/GlobalContext";
 import { convertToSeconds } from "@/helpers/format";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAccount } from "wagmi";
 import { writeContract } from "wagmi/actions";
@@ -47,7 +45,6 @@ export function CreatePrediction() {
     resolutionPeriod: 72,
   };
 
-  const navigate = useNavigate();
   const [isLoading, setisLoading] = useState(false);
 
   const onSubmit = async (values: InitialValuesType) => {
@@ -70,7 +67,6 @@ export function CreatePrediction() {
       console.log("createPredictionTx", createPredictionTx);
       refetchActivePredictions();
       toast.success(`Prediction Created successfully`);
-      navigate(APP_ROUTES.PREDICTIONS);
     } catch (error) {
       console.log("Error in creating prediction", error);
       toast.error(`Error in creating prediction`);

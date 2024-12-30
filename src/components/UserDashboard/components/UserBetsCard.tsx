@@ -1,10 +1,8 @@
 import { Clock, User } from "lucide-react";
-import { cn } from "../lib/utils";
 import { formatAddress, formatAmount, formatDate } from "@/helpers/format";
 import { PredictionCardProps } from "@/types/prediction";
 import { USDC_NAME } from "@/config/USDCConfig";
 import { useState } from "react";
-import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
@@ -12,13 +10,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { DisplayVoteContainer } from "./DisplayVoteContainer";
+import { DisplayVoteContainer } from "@/components/DisplayVoteContainer";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type PredictionPropsT = {
   prediction: PredictionCardProps;
 };
 
-export function PredictionCard({ prediction }: PredictionPropsT) {
+export function UserBetsCard({ prediction }: PredictionPropsT) {
   const totalAmount = prediction.totalYesAmount + prediction.totalNoAmount;
   const yesPercentage =
     totalAmount > 0n
