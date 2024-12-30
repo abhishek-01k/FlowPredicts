@@ -1,135 +1,119 @@
 # FlowPredicts
+![flowPredicts](https://github.com/user-attachments/assets/21b93f6d-830c-41be-a91c-e30fc531c05a)
 
-![flowPredicts](https://github.com/user-attachments/assets/b1c6407c-d284-4a08-8846-408065297121)
-
-
-FlowPredicts is a decentralized prediction marketplace built on Ethereum that allows users to create and participate in prediction markets. Users can bet on the outcome of various events using USDC, creating a fair and transparent platform for predictions. This project is a submission for the [Flow Asia Hackathon](https://www.hackquest.io/en/hackathon/explore/Flow-Asia-Hackathon).
-
-## Features
-
-### Core Functionalities
-
-- **Create Predictions:**
-  - Users can create predictions with detailed questions, image URIs, and predefined betting and resolution durations.
-  - Validation ensures the betting and resolution durations fall within allowed time ranges.
-
-- **Create Predictions:**
-  - Users can create predictions with detailed questions, image URIs, and predefined betting and resolution durations.
-  - Validation ensures the betting and resolution durations fall within allowed time ranges.
-
-- **Place Bets:**
-  - Users can place bets on active predictions, choosing between "Yes" and "No" options.
-  - Bets are secured using user-deposited USDC balances.
-
-- **Resolve Predictions:**
-  - Prediction creators can resolve predictions after the betting period ends but within the resolution timeframe.
-  - Outcomes are finalized with a boolean value, enabling users to claim their winnings.
-
-- **Claim Winnings:**
-  - Users who placed correct bets can claim their winnings post-resolution.
-  - Winnings are calculated proportionally based on the total pool and platform fees.
-
-- **User Balance Management:**
-  - Users can deposit and withdraw USDC balances securely.
-  - All transactions are tracked transparently on the blockchain.
-
-### Administrative Features
-
-- **Platform Fee:**
-  - A 2% platform fee is deducted from the total betting pool to support platform operations.
-  - Fees can be withdrawn by the contract owner.
-
-- **Pause and Unpause:**
-  - Contract functionalities can be paused and resumed by the owner for security and maintenance purposes.
-
-### Query Functionalities
-
-- **Get All Predictions:**
-  - Fetch all predictions created on the platform, including their details.
-
-- **Get Active Predictions:**
-  - Retrieve predictions that are currently open for betting.
-
-- **Get User Predictions:**
-  - View all predictions created by a specific user.
-
-- **Get User Bets:**
-  - Fetch all bets placed by a user, along with corresponding prediction details.
-
-- **Get Individual Details:**
-  - Fetch detailed information about specific predictions or bets.
-
-## Features To Be Added
-
-1. **Integration with Flow Blockchain:**
-   - Transition from Ethereum to Flow blockchain for better scalability and lower transaction fees.
-
-2. **Customizable Prediction Parameters:**
-   - Allow users to customize platform fee percentages and betting conditions for their predictions.
-
-3. **Leaderboard and Gamification:**
-   - Introduce a leaderboard to showcase top predictors and their performance.
-   - Add gamification features like badges and rewards for participation.
-
-4. **Social Features:**
-   - Enable users to share predictions on social media to increase engagement.
-
-5. **Mobile-Friendly Interface:**
-   - Develop a mobile-first UI/UX for better accessibility on smartphones.
-
-6. **Multi-Chain Support:**
-   - Extend support to other EVM-compatible chains for broader user adoption.
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v16 or higher)
-- Hardhat
-- Ethereum wallet (e.g., MetaMask)
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/abhishek-01k/FlowPredicts.git
-   cd FlowPredicts
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Configure environment variables:
-   - Create a `.env` file in the root directory.
-   - Add your private key and USDC token address.
-
-4. Compile the smart contracts:
-   ```bash
-   npx hardhat compile
-   ```
-
-5. Deploy the contracts:
-   ```bash
-   npx hardhat run scripts/deploy.js --network <network_name>
-   ```
-
-### Run Tests
-
-Execute the tests to ensure the contracts are functioning correctly:
-```bash
-npx hardhat test
-```
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request to suggest improvements.
+FlowPredicts is a **Decentralized Prediction Market** deployed on the **Flow EVM Testnet**. It enables users to create, participate, and resolve prediction markets seamlessly using blockchain technology. This application is designed as a **Telegram Mini Application**, allowing users to interact directly within Telegram, making it highly accessible and convenient.
 
 ---
 
-FlowPredicts aims to democratize prediction markets while ensuring transparency, security, and user engagement. Be a part of this journey and help us create a revolutionary platform for the future of decentralized predictions!
+## Key Features
+
+### 1. **Prediction Market Creation**
+   - Users can create markets by defining event details, possible outcomes, and a deadline.
+   - Customizable market options with support for image URIs for visual representation.
+
+### 2. **Participation in Markets**
+   - Bet on the outcome of various events using USDf(PYUSD).
+   - Real-time updates on market conditions and betting pools.
+
+### 3. **Decentralized Resolution**
+   - Market outcomes are determined through decentralized mechanisms to ensure transparency.
+   - Integration with oracles for accurate and reliable event resolution.
+
+### 4. **USDf(PYUSD) Transactions**
+   - Conduct all transactions with the stability of USDf(PYUSD), providing users with a familiar and secure experience.
+
+### 5. **Telegram Integration**
+   - Fully functional mini application available directly on Telegram.
+   - Intuitive interface designed for seamless interaction.
+
+### 6. **Analytics Dashboard**
+   - View market statistics, betting trends, and historical data.
+   - Advanced insights for power users and market creators.
+
+### 7. **Smart Contract Security**
+   - All contracts are thoroughly audited for maximum security.
+   - Transparent smart contract interactions available for review.
+
+### 8. **Community Governance**
+   - Propose and vote on platform changes through decentralized governance.
+   - Empower users to shape the future of FlowPredicts.
+
+---
+
+## Required Token
+
+To participate in the FlowPredicts platform, users need the specific token deployed at the following address on the Flow EVM Testnet:
+
+**[0xd7d43ab7b365f0d0789aE83F4385fA710FfdC98F](https://evm-testnet.flowscan.io/address/0xd7d43ab7b365f0d0789aE83F4385fA710FfdC98F)**
+
+This token is required to place bets or create predictions.
+
+---
+
+## Pros of FlowPredicts
+
+### 1. **Accessibility**
+   - Operates within Telegram, making it easy to use without requiring external applications.
+
+### 2. **Decentralized and Transparent**
+   - Built on blockchain technology to ensure fairness and resistance to censorship.
+
+### 3. **Stable Transactions**
+   - USDf(PYUSD) integration provides stability in volatile markets.
+
+### 4. **Low Fees**
+   - Leverages blockchain efficiency to minimize transaction costs.
+
+### 5. **Global Reach**
+   - Available to anyone with internet access and a Telegram account.
+
+### 6. **User Engagement**
+   - Interactive features such as leaderboards, rewards, and referral programs.
+
+---
+
+## Potential Roadmap
+
+### Short-Term Goals
+1. Deploy on the Flow Mainnet for broader adoption.
+2. Enhance UI/UX for an improved Telegram experience.
+3. Integrate multiple stablecoins for diversified payment options.
+
+### Long-Term Goals
+1. Launch a dedicated mobile application for Android and iOS.
+2. Introduce advanced market types, such as scalar markets.
+3. Establish a community-driven reward program.
+4. Integrate AI for predictive analytics and market recommendations.
+5. Partner with news and data providers for real-time event tracking.
+
+---
+
+## Future Enhancements
+
+Currently, the user who creates a prediction is responsible for resolving it. In the future, we plan to introduce **AI Agents** that will:
+
+1. Fetch trending topics and live data from platforms like Twitter.
+2. Create predictions based on real-time results and popular discussions.
+3. Automate the resolution process using decentralized data sources and AI insights.
+
+This will significantly enhance user experience and reduce dependency on manual resolution.
+
+---
+
+## How It Works
+
+1. **Create Market:** Define event details, add betting duration and resolution time and done.
+2. **Participate:** Bet USDf(PYUSD) on predicted outcomes.
+3. **Resolution:** Market is resolved based on event results via oracles or manually by the creator.
+4. **Payouts:** Winners receive proportional rewards from the betting pool.
+
+---
+
+## Get Started
+
+1. Add the FlowPredicts bot to your Telegram.
+2. Follow the instructions to create or join a prediction market.
+3. Start predicting and earning rewards!
+
+**Telegram Link:** [FlowPredicts Mini App](https://t.me/FlowPredictsBot)
+
