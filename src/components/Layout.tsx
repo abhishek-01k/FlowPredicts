@@ -35,6 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
+              <img src="/flowPredicts.png" className="w-16 h-16" />
               <Link to="/" className="text-xl font-bold">
                 FlowPredicts
               </Link>
