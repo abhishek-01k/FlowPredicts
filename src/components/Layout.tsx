@@ -42,8 +42,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
             <nav className="hidden md:flex items-center space-x-4">
               <NavLinks />
-              <ThemeToggle />
               <WalletConnect />
+              <ThemeToggle />
             </nav>
 
             <div className="md:hidden">
@@ -55,9 +55,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 </SheetTrigger>
                 <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                   <nav className="flex flex-col space-y-4 mt-4">
-                    <NavLinks />
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-start">
                       <ThemeToggle />
+                    </div>
+                    <NavLinks />
+                    <div className="flex flex-col items-start">
                       <WalletConnect />
                     </div>
                   </nav>

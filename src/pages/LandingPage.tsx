@@ -54,7 +54,7 @@ function LandingPage() {
             The next generation of prediction markets powered by Flow blockchain
             and AI
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-center md:flex-row flex-col">
             <Button
               size="lg"
               className="gap-2"
@@ -118,25 +118,25 @@ function LandingPage() {
             <TabsList className="mb-8 flex flex-row gap-4 bg-background">
               <TabsTrigger
                 value="trending"
-                className="w-[140px] bg-blue-600 text-white"
+                className="py-2 bg-slate-100 text-black"
               >
                 Trending
               </TabsTrigger>
               <TabsTrigger
                 value="sports"
-                className="w-[140px] bg-blue-600 text-white"
+                className="py-2 bg-slate-100 text-black"
               >
                 Sports
               </TabsTrigger>
               <TabsTrigger
                 value="crypto"
-                className="w-[140px] bg-blue-600 text-white"
+                className="py-2 bg-slate-100 text-black"
               >
                 Crypto
               </TabsTrigger>
               <TabsTrigger
                 value="politics"
-                className="w-[140px] bg-blue-600 text-white"
+                className="py-2 bg-slate-100 text-black"
               >
                 Politics
               </TabsTrigger>
