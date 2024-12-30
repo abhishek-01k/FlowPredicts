@@ -5,16 +5,6 @@ FlowPredicts is a **Decentralized Prediction Market** deployed on the **Flow EVM
 
 ---
 
-## Get Started
-
-1. Add the FlowPredicts bot to your Telegram.
-2. Follow the instructions to create or join a prediction market.
-3. Start predicting and earning rewards!
-
-**Telegram Link:** [FlowPredicts Mini App](https://t.me/Flow_Predict_bot/FlowPredicts.)
-
----
-
 ## How It Works
 
 1. **Create Market:** Define event details, add betting duration and resolution time and done.
