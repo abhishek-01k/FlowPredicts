@@ -5,6 +5,27 @@ FlowPredicts is a **Decentralized Prediction Market** deployed on the **Flow EVM
 
 ---
 
+## Get Started
+
+1. Add the FlowPredicts bot to your Telegram.
+2. Follow the instructions to create or join a prediction market.
+3. Start predicting and earning rewards!
+
+**Telegram Link:** [FlowPredicts Mini App](https://t.me/FlowPredictsBot)
+
+---
+
+## How It Works
+
+1. **Create Market:** Define event details, add betting duration and resolution time and done.
+2. **Deposit USDf:** User needs to deposit USDf on the platform
+3. **Participate:** Bet USDf(PYUSD) on predicted outcomes.
+4. **Resolution:** Market is resolved based on event results captured by the AI Agents or manually by the creators.
+5. **Payouts:** Winners receive proportional rewards from the betting pool.
+6. **PlatformFEE:** Platform charges a 2% FEE on all the predictions.
+
+---
+
 ## Key Features
 
 ### 1. **Prediction Market Creation**
@@ -100,20 +121,5 @@ This will significantly enhance user experience and reduce dependency on manual 
 
 ---
 
-## How It Works
 
-1. **Create Market:** Define event details, add betting duration and resolution time and done.
-2. **Participate:** Bet USDf(PYUSD) on predicted outcomes.
-3. **Resolution:** Market is resolved based on event results via oracles or manually by the creator.
-4. **Payouts:** Winners receive proportional rewards from the betting pool.
-
----
-
-## Get Started
-
-1. Add the FlowPredicts bot to your Telegram.
-2. Follow the instructions to create or join a prediction market.
-3. Start predicting and earning rewards!
-
-**Telegram Link:** [FlowPredicts Mini App](https://t.me/FlowPredictsBot)
 
