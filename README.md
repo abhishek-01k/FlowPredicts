@@ -16,6 +16,11 @@ FlowPredicts is a **Decentralized Prediction Market** deployed on the **Flow EVM
 
 ---
 
+PREDICTION_MARKET_CONTRACT_ADDRESS=[0x9A4C512C3AabaED39C0cDDb44dF345baFFc756F1](https://evm-testnet.flowscan.io/address/0x9A4C512C3AabaED39C0cDDb44dF345baFFc756F1)
+USDf_CONTRACT_ADDRESS=[0xd7d43ab7b365f0d0789aE83F4385fA710FfdC98F](https://evm-testnet.flowscan.io/address/0xd7d43ab7b365f0d0789aE83F4385fA710FfdC98F)
+
+---
+
 ## Key Features
 
 ### 1. **Prediction Market Creation**
