@@ -36,7 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Link to="/" className="text-xl font-bold">
-                PredictChain
+                FlowPredicts
               </Link>
             </div>
 

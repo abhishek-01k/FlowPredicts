@@ -34,6 +34,70 @@ function LandingPage() {
     return () => observer.disconnect();
   }, []);
 
+  const trendingPredictions = [
+    {
+      id: 1,
+      trend: "Trending",
+      title: "Will FlowPredicts win the Flow Hackathon?",
+    },
+    {
+      id: 2,
+      trend: "Trending",
+      title: "Will OpenAI release GPT-5 by the end of 2025?",
+    },
+    {
+      id: 3,
+      trend: "Trending",
+      title:
+        "Will Ethereums total value locked (TVL) exceed $100 billion by Q4 2025?",
+    },
+    {
+      id: 5,
+      title: "Will SpaceX send the first crewed mission to Mars by 2026?",
+      trend: "Trending",
+    },
+    {
+      id: 6,
+      title: "Will Bitcoin's price touches $150k by July 2025?",
+      trend: "Trending",
+    },
+    {
+      id: 7,
+      trend: "Ethereum",
+      title:
+        "Will Ethereum total value locked (TVL) exceed $100 billion by Q4 2025?",
+    },
+    {
+      id: 8,
+      trend: "Ethereum",
+      title:
+        "Will Ethereum maintain dominance with over 50% of the DeFi market by 2025?",
+    },
+    {
+      id: 9,
+      trend: "Ethereum",
+      title:
+        "Will the Ethereum network successfully reduce average transaction fees below $0.50 by mid-2025?",
+    },
+    {
+      id: 10,
+      trend: "Flow",
+      title: "Will FlowPredicts win the Flow Hackathon?",
+    },
+    {
+      id: 11,
+      trend: "Flow",
+      title:
+        "Will Flow blockchain's native token FLOW hit $20 by the end of 2025?",
+    },
+    {
+      id: 12,
+      trend: "Flow",
+      title:
+        "Will Flow blockchain surpass 15 million active wallets by mid-2025?",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -64,7 +128,14 @@ function LandingPage() {
             >
               Explore Predictions <ChevronRight className="h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline" className="gap-2">
+            <Button
+              size="lg"
+              variant="outline"
+              className="gap-2"
+              onClick={() => {
+                navigate(APP_ROUTES.CREATE_PREDICTION);
+              }}
+            >
               Create Prediction <TrendingUpDown className="h-4 w-4" />
             </Button>
           </div>
@@ -123,42 +194,73 @@ function LandingPage() {
                 Trending
               </TabsTrigger>
               <TabsTrigger
-                value="sports"
+                value="ethereum"
                 className="py-2 bg-slate-100 text-black"
               >
-                Sports
+                Ethereum
               </TabsTrigger>
               <TabsTrigger
-                value="crypto"
+                value="flow"
                 className="py-2 bg-slate-100 text-black"
               >
-                Crypto
-              </TabsTrigger>
-              <TabsTrigger
-                value="politics"
-                className="py-2 bg-slate-100 text-black"
-              >
-                Politics
+                Flow
               </TabsTrigger>
             </TabsList>
             <TabsContent value="trending">
-              <ScrollArea className="h-[600px] pr-4">
-                {[1, 2, 3, 4, 5].map((item) => (
-                  <Card key={item} className="p-6 mb-4 hidden-initially">
-                    <div className="flex justify-between items-center">
-                      <div className="flex flex-col items-start">
-                        <Badge className="mb-2">Trending</Badge>
-                        <h3 className="text-lg font-semibold">
-                          Will BTC reach $100k by 2024?
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          24h Volume: 50,000 FLOW
-                        </p>
+              <ScrollArea className="h-[400px] pr-4">
+                {trendingPredictions
+                  .filter((item) => item.trend === "Trending")
+                  .map((item) => (
+                    <Card key={item.id} className="p-6 mb-4 hidden-initially">
+                      <div className="flex justify-between items-center">
+                        <div className="flex flex-col items-start">
+                          <Badge className="mb-2">{item.trend}</Badge>
+                          <h3 className="text-lg font-semibold">
+                            {item.title}
+                          </h3>
+                        </div>
+                        <Button variant="outline">Trade Now</Button>
                       </div>
-                      <Button variant="outline">Trade Now</Button>
-                    </div>
-                  </Card>
-                ))}
+                    </Card>
+                  ))}
+              </ScrollArea>
+            </TabsContent>
+            <TabsContent value="ethereum">
+              <ScrollArea className="h-[400px] pr-4">
+                {trendingPredictions
+                  .filter((item) => item.trend === "Ethereum")
+                  .map((item) => (
+                    <Card key={item.id} className="p-6 mb-4 hidden-initially">
+                      <div className="flex justify-between items-center">
+                        <div className="flex flex-col items-start">
+                          <Badge className="mb-2">{item.trend}</Badge>
+                          <h3 className="text-lg font-semibold">
+                            {item.title}
+                          </h3>
+                        </div>
+                        <Button variant="outline">Trade Now</Button>
+                      </div>
+                    </Card>
+                  ))}
+              </ScrollArea>
+            </TabsContent>
+            <TabsContent value="flow">
+              <ScrollArea className="h-[400px] pr-4">
+                {trendingPredictions
+                  .filter((item) => item.trend === "Flow")
+                  .map((item) => (
+                    <Card key={item.id} className="p-6 mb-4 hidden-initially">
+                      <div className="flex justify-between items-center">
+                        <div className="flex flex-col items-start">
+                          <Badge className="mb-2">{item.trend}</Badge>
+                          <h3 className="text-lg font-semibold">
+                            {item.title}
+                          </h3>
+                        </div>
+                        <Button variant="outline">Trade Now</Button>
+                      </div>
+                    </Card>
+                  ))}
               </ScrollArea>
             </TabsContent>
           </Tabs>
